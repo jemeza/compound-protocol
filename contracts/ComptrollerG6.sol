@@ -1065,7 +1065,7 @@ contract ComptrollerG6 is ComptrollerV5Storage, ComptrollerInterface, Comptrolle
      * @notice Recalculate and update COMP speeds for all COMP markets
      */
     function refreshCompSpeeds() public {
-        require(msg.sender == tx.origin, "only externally owned accounts may refresh speeds");
+        // require(msg.sender == tx.origin, "only externally owned accounts may refresh speeds");
         refreshCompSpeedsInternal();
     }
 

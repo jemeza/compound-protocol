@@ -118,8 +118,8 @@ contract CompoundLens {
         uint tokenAllowance;
 
         if (compareStrings(cToken.symbol(), "cETH")) {
-            tokenBalance = account.balance;
-            tokenAllowance = account.balance;
+            // tokenBalance = account.balance;
+            // tokenAllowance = account.balance;
         } else {
             CErc20 cErc20 = CErc20(address(cToken));
             EIP20Interface underlying = EIP20Interface(cErc20.underlying());

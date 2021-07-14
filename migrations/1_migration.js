@@ -82,13 +82,14 @@ var DAIInterestRateModelV3 = artifacts.require("DAIInterestRateModelV3");
 var Maximillion = artifacts.require("Maximillion");
 var SimplePriceOracle = artifacts.require("SimplePriceOracle");
 var BaseJumpRateModelV2 = artifacts.require("BaseJumpRateModelV2");
+var GovernorBravoDelegate = artifacts.require("GovernorBravoDelegate");
 
 /**
  * Error: Could not find artifacts for CTokenInterfaces from any sources
  */
 // var CTokenInterfaces = artifacts.require("CTokenInterfaces");
 
-module.exports = function(deployer) {
+module.exports = function(deployer, accounts) {
   // deployment steps
   /**
    * EIP20NonStandardInterface" is an abstract contract or an interface and cannot be deployed.
@@ -99,14 +100,15 @@ module.exports = function(deployer) {
    * "ComptrollerInterface" is an abstract contract or an interface and cannot be deployed.
    */
   // deployer.deploy(ComptrollerInterface);
-
-  deployer.deploy(ComptrollerG1);
-  deployer.deploy(ComptrollerG3);
-  deployer.deploy(Comptroller);
-  deployer.deploy(CErc20);
-  deployer.deploy(ComptrollerG2);
-  deployer.deploy(ComptrollerG6);
-  deployer.deploy(Exponential);
+  // 
+  deployer.deploy(GovernorBravoDelegate);
+  deployer.deploy(ComptrollerG1, {gas: 0x9896a6});
+  deployer.deploy(ComptrollerG3, {gas: 0x9896a6});
+  deployer.deploy(Comptroller, {gas: 0x9896a6});
+  deployer.deploy(CErc20, {gas: 0x9896a6});
+  deployer.deploy(ComptrollerG2,{gas: 0x9896a6});
+  deployer.deploy(ComptrollerG6, {gas: 0x9896a6});
+  deployer.deploy(Exponential, {gas: 0x9896a6});
 
   /**
    * "PriceOracle" is an abstract contract or an interface and cannot be deployed.
@@ -123,7 +125,7 @@ module.exports = function(deployer) {
    */
   // deployer.deploy(CToken);
 
-  deployer.deploy(ComptrollerG5);
+  deployer.deploy(ComptrollerG5, {gas: 0x9896a6});
 
   /**
    * Error:
@@ -134,10 +136,11 @@ module.exports = function(deployer) {
    * multiplierPerYear = 5
    * jumpMultiplierPerYear = 5
    * kink_ = 5
-   * owner_ = 
+   * owner_ = accounts[0]
+   *     constructor(uint baseRatePerYear, uint multiplierPerYear, uint jumpMultiplierPerYear, uint kink_, address owner_)
    */
-  deployer.deploy(LegacyJumpRateModelV2, 5, 5, 5, 5, user0Address);
-  deployer.deploy(ComptrollerG4);
+  // deployer.deploy(LegacyJumpRateModelV2, 5, 5, 5, 5, accounts[0], {gas: 0x9896a6});
+  deployer.deploy(ComptrollerG4, {gas: 0x9896a6});
 
   /**
    * Error:
@@ -156,30 +159,30 @@ module.exports = function(deployer) {
    * bytes memory becomeImplementationData
    * 
    */
-  deployer.deploy(CErc20Delegator);
-  deployer.deploy(CErc20Delegate);
-  deployer.deploy(CDaiDelegate);
-  deployer.deploy(ExponentialNoError);
-  deployer.deploy(SafeMath);
-  // deployer.deploy(ErrorReporter);
-  deployer.deploy(Unitroller);
-  deployer.deploy(Migrations);
-  deployer.deploy(CarefulMath);
-  deployer.deploy(JumpRateModel);
-  deployer.deploy(Timelock);
-  deployer.deploy(EIP20Interface);
-  deployer.deploy(InterestRateModel);
-  deployer.deploy(JumpRateModelV2);
-  // deployer.deploy(ComptrollerStorage);
-  deployer.deploy(WhitePaperInterestRateModel);
-  deployer.deploy(Reservoir);
-  deployer.deploy(CCompLikeDelegate);
-  deployer.deploy(CErc20Immutable);
-  deployer.deploy(CEther);
-  deployer.deploy(DAIInterestRateModelV3);
-  deployer.deploy(Maximillion);
-  deployer.deploy(SimplePriceOracle);
-  deployer.deploy(BaseJumpRateModelV2);
+  // deployer.deploy(CErc20Delegator);
+  // deployer.deploy(CErc20Delegate);
+  // deployer.deploy(CDaiDelegate);
+  // deployer.deploy(ExponentialNoError);
+  // deployer.deploy(SafeMath);
+  // // deployer.deploy(ErrorReporter);
+  // deployer.deploy(Unitroller);
+  // deployer.deploy(Migrations);
+  // deployer.deploy(CarefulMath);
+  // deployer.deploy(JumpRateModel);
+  // deployer.deploy(Timelock);
+  // deployer.deploy(EIP20Interface);
+  // deployer.deploy(InterestRateModel);
+  // deployer.deploy(JumpRateModelV2);
+  // // deployer.deploy(ComptrollerStorage);
+  // deployer.deploy(WhitePaperInterestRateModel);
+  // deployer.deploy(Reservoir);
+  // deployer.deploy(CCompLikeDelegate);
+  // deployer.deploy(CErc20Immutable);
+  // deployer.deploy(CEther);
+  // deployer.deploy(DAIInterestRateModelV3);
+  // deployer.deploy(Maximillion);
+  // deployer.deploy(SimplePriceOracle);
+  // deployer.deploy(BaseJumpRateModelV2);
   // deployer.deploy(CTokenInterfaces);
   
 };

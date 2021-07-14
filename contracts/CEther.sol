@@ -122,9 +122,10 @@ contract CEther is CToken {
      * @return The quantity of Ether owned by this contract
      */
     function getCashPrior() internal view returns (uint) {
-        (MathError err, uint startingBalance) = subUInt(address(this).balance, msg.value);
-        require(err == MathError.NO_ERROR);
-        return startingBalance;
+        // (MathError err, uint startingBalance) = subUInt(address(this).balance, msg.value);
+        // require(err == MathError.NO_ERROR);
+        // return startingBalance;
+        return 0;
     }
 
     /**

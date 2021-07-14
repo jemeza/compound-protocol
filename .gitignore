@@ -2,6 +2,7 @@ allFiredEvents
 .build-temp
 build
 build_
+build-ovm
 node_modules
 .env
 .certora*
