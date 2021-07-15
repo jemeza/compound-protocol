@@ -83,108 +83,23 @@ var Maximillion = artifacts.require("Maximillion");
 var SimplePriceOracle = artifacts.require("SimplePriceOracle");
 var BaseJumpRateModelV2 = artifacts.require("BaseJumpRateModelV2");
 var GovernorBravoDelegate = artifacts.require("GovernorBravoDelegate");
+var GovernorBravoDelegator = artifacts.require("GovernorBravoDelegator");
+var Comp = artifacts.require("Comp");
+
 
 /**
  * Error: Could not find artifacts for CTokenInterfaces from any sources
  */
 // var CTokenInterfaces = artifacts.require("CTokenInterfaces");
 
-module.exports = function(deployer, accounts) {
-  // deployment steps
-  /**
-   * EIP20NonStandardInterface" is an abstract contract or an interface and cannot be deployed.
-   */
-  // deployer.deploy(EIP20NonStandardInterface);
-
-  /**
-   * "ComptrollerInterface" is an abstract contract or an interface and cannot be deployed.
-   */
-  // deployer.deploy(ComptrollerInterface);
-  // 
-  deployer.deploy(GovernorBravoDelegate);
-  deployer.deploy(ComptrollerG1, {gas: 0x9896a6});
-  deployer.deploy(ComptrollerG3, {gas: 0x9896a6});
-  deployer.deploy(Comptroller, {gas: 0x9896a6});
-  deployer.deploy(CErc20, {gas: 0x9896a6});
-  deployer.deploy(ComptrollerG2,{gas: 0x9896a6});
-  deployer.deploy(ComptrollerG6, {gas: 0x9896a6});
-  deployer.deploy(Exponential, {gas: 0x9896a6});
-
-  /**
-   * "PriceOracle" is an abstract contract or an interface and cannot be deployed.
-   */
-  // deployer.deploy(PriceOracle);
-
-  /**
-   * "LegacyInterestRateModel" is an abstract contract or an interface and cannot be deployed.
-   */
-  // deployer.deploy(LegacyInterestRateModel);
-
-  /**
-   * "CToken" is an abstract contract or an interface and cannot be deployed.
-   */
-  // deployer.deploy(CToken);
-
-  deployer.deploy(ComptrollerG5, {gas: 0x9896a6});
-
-  /**
-   * Error:
-   * "LegacyJumpRateModelV2" -- Invalid number of parameters for "undefined". Got 0 expected 5!.
-   * Fix:
-   * The constructor of this smart contract requires 5 parameters(no clue what first four mean)
-   * baseRatePerYear = 5
-   * multiplierPerYear = 5
-   * jumpMultiplierPerYear = 5
-   * kink_ = 5
-   * owner_ = accounts[0]
-   *     constructor(uint baseRatePerYear, uint multiplierPerYear, uint jumpMultiplierPerYear, uint kink_, address owner_)
-   */
-  // deployer.deploy(LegacyJumpRateModelV2, 5, 5, 5, 5, accounts[0], {gas: 0x9896a6});
-  deployer.deploy(ComptrollerG4, {gas: 0x9896a6});
-
-  /**
-   * Error:
-   * "CErc20Delegator" -- Invalid number of parameters for "undefined". Got 0 expected 10!.
-   * Fix:
-   * The constructor of this smart contract requires 10 parameters
-   * address underlying_,
-   * ComptrollerInterface comptroller_,
-   * InterestRateModel interestRateModel_,
-   * uint initialExchangeRateMantissa_,
-   * string memory name_,
-   * string memory symbol_,
-   * uint8 decimals_,
-   * address payable admin_,
-   * address implementation_,
-   * bytes memory becomeImplementationData
-   * 
-   */
-  // deployer.deploy(CErc20Delegator);
-  // deployer.deploy(CErc20Delegate);
-  // deployer.deploy(CDaiDelegate);
-  // deployer.deploy(ExponentialNoError);
-  // deployer.deploy(SafeMath);
-  // // deployer.deploy(ErrorReporter);
-  // deployer.deploy(Unitroller);
-  // deployer.deploy(Migrations);
-  // deployer.deploy(CarefulMath);
-  // deployer.deploy(JumpRateModel);
-  // deployer.deploy(Timelock);
-  // deployer.deploy(EIP20Interface);
-  // deployer.deploy(InterestRateModel);
-  // deployer.deploy(JumpRateModelV2);
-  // // deployer.deploy(ComptrollerStorage);
-  // deployer.deploy(WhitePaperInterestRateModel);
-  // deployer.deploy(Reservoir);
-  // deployer.deploy(CCompLikeDelegate);
-  // deployer.deploy(CErc20Immutable);
-  // deployer.deploy(CEther);
-  // deployer.deploy(DAIInterestRateModelV3);
-  // deployer.deploy(Maximillion);
-  // deployer.deploy(SimplePriceOracle);
-  // deployer.deploy(BaseJumpRateModelV2);
-  // deployer.deploy(CTokenInterfaces);
-  
+module.exports = function(deployer, network, accounts) {
+  deployer.then(async () => {
+  await deployer.deploy(GovernorBravoDelegate, {gasPrice: 0});
+  await deployer.deploy(SafeMath, {gasPrice: 0});
+  await deployer.deploy(Comp, accounts[0], {gasPrice: 0});
+  await deployer.deploy(Timelock, accounts[0], 172800, {gasPrice: 0});
+  await deployer.deploy(GovernorBravoDelegator, Timelock.address, Comp.address, Timelock.address, GovernorBravoDelegate.address, 17280, 1, "100000000000000000000000", {gasPrice: 0});
+  });
 };
 
 
